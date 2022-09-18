@@ -1,0 +1,147 @@
+/* the first best to be doing is setting box-sizing to border-box */
+
+/* for all the elements and the pseudo elements */
+*,*::after, *::before{
+    box-sizing: border-box;
+}
+
+/* the best next thing is get rid of the pesky margins on all the sides*/
+
+body {
+    margin: 0;
+    /* we now need to use grid to get our 5 section layout here  ie 3 rows and 2 columns*/
+    display: grid;
+    grid-template-columns: repeat(2, 4rem);
+    /* next thing we want to do is set uo our rows */
+    /* we want three different rows ie cards row , text row then card row*/
+    grid-template-rows: 7rem 2rem 7rem;
+    /* hee we have set the first row to have 7 rem ,text row to have 2rem etc */
+    /* so here any div created will move like this....since there are two columns in row,first div in first column,second div in second column first row still */
+    /* any other div added after here moves now to the second row first column  */
+
+    /* now we space out our elements */
+    gap: .5rem;
+    /* now we create a pointer such that anywhere we click on the game a card action happens */
+    cursor: pointer;
+
+    /* in order to adjust this at the center of our screen we need to.. */
+    justify-content: center;
+    /* we create some space between the top of screen and our first element */
+    padding-top: 1rem;
+}
+
+/* now we style the individual decks themselves */
+
+.deck {
+    /* we need the decks to e 100% width and height so that they fill the entire grid columns they have been made for */
+    height: 100%;
+    width: 100%;
+    /* to see how this decks look like we give them a border  */
+    border: 1px solid black;
+    /* we want to also center the text in our deck thus .. */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* we want our text to be larger thus we increase our font */
+    font-size: 3rem;
+    /* we dont want the corners of the cards to be sharp thus.. */
+    border-radius: .5rem;
+    /* now we change the color to be white because we have a computer deck which we are going to set  background color to green and also a player deck with background blue*/
+    color: white;
+    /* that is the text-color */
+    /* we don't want to highlight the text on the deck thus we set .. */
+    /* this makes it able for the user not to select that text eg so as to copy and paste*/
+
+    user-select: none;
+
+}
+
+.computer-deck {
+    background-color: green;
+}
+
+.player-deck {
+    background-color: blue;
+}
+
+/* we want our text to span the whole row it is in thus.. */
+
+.text {
+    /* since we have two columns in our row we ... */
+    grid-column: span 2;
+    /* if we want to center our text inside this columns and rows... */
+    /* we change the display here to flex */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* thus the text will be at the center of the columns and rows */
+}
+
+/* we work on our card */
+
+.card {
+    /* to position our before and after element inside our card, we give our card... */
+    position: relative;
+    /* so that when we do our before and after element we can do it based on where our card is positioned */
+
+    height: 100%;
+    width: 100%;
+    border: 1px solid black;
+    border-radius: .5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+
+}
+/* because the before and after elements are almost alike.. */
+
+.card::before,
+.card::after {
+    /* attr allows us to access any data attribute */
+    /* here we are stating what to come before and after */
+    content: attr(data-value);
+    /* now we return the font size to the normal rem */
+    font-size: 1rem;
+
+    /* up to here we can see our data-value 9 of hearts show up before and after ie on both sides of our card */
+    position: absolute;
+    /* position absolute makes the data-value appear inside our card */
+   
+
+}
+
+/* we also need a card  with a before  element*/
+
+.card::before {
+    /* now we need to position our before element  */
+    /* we need to place it in the top left */
+    top: .5rem;
+    left: .5rem;
+    /* up to here we can see our  */
+
+}
+
+/* we also need a card with an after element */
+.card::after {
+    /* for our after we want to put it in the bottom and the right */
+
+    bottom: .5rem;
+    right: .5rem;
+
+    /* we want to also make sure that our data-value at the bottom is flipped upside down */
+    /* thus all we need to do is take our transform and rotate this at 180 degrees */
+
+    transform: rotate(180deg);
+
+}
+
+/* the last thing we want to do is  */
+
+.card.red {
+    color: red;
+}
+
+.card.black {
+    color: black;
+}
